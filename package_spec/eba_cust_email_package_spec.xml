@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="9359aae5fcaeea5e4d693e8416e8d182cb2d99cf" author="(WKSP_ADMCI)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createOraclePackageSpec objectName="EBA_CUST_EMAIL" objectType="PACKAGE_SPEC" ownerName="WKSP_ADMCI"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  CREATE OR REPLACE EDITIONABLE PACKAGE "WKSP_ADMCI"."EBA_CUST_EMAIL" as
+    procedure send_feedback_email
+    (
+        p_app_id        in number,
+        p_page_id       in number,
+        p_submitter     in varchar2,
+        p_feedback_type in varchar2,
+        p_feedback      in varchar2
+    );
+end eba_cust_email;
+]]></n0:source>
+		</n0:createOraclePackageSpec>
+	</changeSet>
+</databaseChangeLog>

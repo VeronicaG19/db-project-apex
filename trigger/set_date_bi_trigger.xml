@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="f02749ec236cba593262a00f2070b579348bb84e" author="(WKSP_ADMCI)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createOracleTrigger objectName="SET_DATE_BI" objectType="TRIGGER" ownerName="WKSP_ADMCI"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  CREATE OR REPLACE EDITIONABLE TRIGGER "WKSP_ADMCI"."SET_DATE_BI" 
+  BEFORE INSERT ON trees
+  FOR EACH ROW
+BEGIN
+
+  if :new.submition_date is null THEN
+    :new.submition_date := systimestamp;
+  end if;
+
+END set_date_bi;
+
+ALTER TRIGGER "WKSP_ADMCI"."SET_DATE_BI" ENABLE]]></n0:source>
+		</n0:createOracleTrigger>
+	</changeSet>
+</databaseChangeLog>

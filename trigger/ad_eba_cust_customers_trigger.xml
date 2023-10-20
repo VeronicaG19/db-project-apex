@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="fac0d420d9eed216ab52b0437d23db5c00113585" author="(WKSP_ADMCI)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createOracleTrigger objectName="AD_EBA_CUST_CUSTOMERS" objectType="TRIGGER" ownerName="WKSP_ADMCI"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  CREATE OR REPLACE EDITIONABLE TRIGGER "WKSP_ADMCI"."AD_EBA_CUST_CUSTOMERS" 
+    after delete on eba_cust_customers
+    for each row
+begin
+    insert into eba_cust_history (table_name, component_rowkey, component_id, column_name, old_value, new_value)
+    values 
+    ('CUSTOMERS', :old.row_key, :old.id, 'CUSTOMER_REMOVED', substr(:old.customer_name,0,4000), null ); 
+end ad_eba_cust_customers;
+
+ALTER TRIGGER "WKSP_ADMCI"."AD_EBA_CUST_CUSTOMERS" ENABLE]]></n0:source>
+		</n0:createOracleTrigger>
+	</changeSet>
+</databaseChangeLog>

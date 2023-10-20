@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="5bb931a089df0328403ddf919d13e20886a8f062" author="(WKSP_ADMCI)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createOracleTrigger objectName="BIU_EBA_DEMO_MD_STATUS" objectType="TRIGGER" ownerName="WKSP_ADMCI"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  CREATE OR REPLACE EDITIONABLE TRIGGER "WKSP_ADMCI"."BIU_EBA_DEMO_MD_STATUS" 
+    before insert or update on eba_demo_md_status
+    for each row
+begin
+    if inserting then
+        :new.created    := current_timestamp;
+        :new.created_by := nvl(wwv_flow.g_user,user);
+    end if;
+    :new.cd         := upper(:new.cd);
+    :new.updated    := current_timestamp;
+    :new.updated_by := nvl(wwv_flow.g_user,user);
+end;
+
+ALTER TRIGGER "WKSP_ADMCI"."BIU_EBA_DEMO_MD_STATUS" ENABLE]]></n0:source>
+		</n0:createOracleTrigger>
+	</changeSet>
+</databaseChangeLog>

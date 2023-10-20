@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="8457222e5de1efe3aeb481cd0cdb0926c0788434" author="(WKSP_ADMCI)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createOracleTrigger objectName="EBA_CUST_PRODUCT_STATUSES_BIU" objectType="TRIGGER" ownerName="WKSP_ADMCI"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  CREATE OR REPLACE EDITIONABLE TRIGGER "WKSP_ADMCI"."EBA_CUST_PRODUCT_STATUSES_BIU" 
+   before insert or update on eba_cust_product_statuses
+   for each row
+begin
+    if :NEW.ID is null then
+           select to_number(sys_guid(),'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+           into :new.id
+           from dual;
+    end if;
+    if inserting then
+       :NEW.CREATED := current_timestamp;
+       :NEW.CREATED_BY := nvl(v('APP_USER'),USER);
+       :NEW.UPDATED := current_timestamp;
+       :NEW.UPDATED_BY := nvl(v('APP_USER'),USER);
+    end if;
+  
+    if updating then
+       :NEW.UPDATED := current_timestamp;
+       :NEW.UPDATED_BY := nvl(v('APP_USER'),USER);
+    end if;
+end;
+
+ALTER TRIGGER "WKSP_ADMCI"."EBA_CUST_PRODUCT_STATUSES_BIU" ENABLE]]></n0:source>
+		</n0:createOracleTrigger>
+	</changeSet>
+</databaseChangeLog>
